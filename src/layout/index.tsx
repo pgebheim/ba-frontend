@@ -12,6 +12,7 @@ import { useDspService } from "@/services/dsp";
 import { Menu } from "../components/Menu";
 import { INTERNAL_EVENTS } from "@/store/constants";
 import { EVENTS } from "@/constants/events";
+import Sidebar from "@/components/Sidebar";
 
 import Player from "@/components/Player";
 import Spinner from "@/components/Spinner";
@@ -136,7 +137,10 @@ export default function Layout({ children }: { children: any }) {
   return connected ? (
     <div className="flex flex-col h-full relative bg-gradient-light bg-gradient-dark">
       <Menu />
-      <div className="flex-1 overflow-hidden">{children}</div>
+      <div className="flex-1 flex overflow-hidden">
+        <Sidebar />
+        <div className="flex-1 overflow-hidden">{children}</div>
+      </div>
       <Player />
       <Dialog />
       <DialogSearch />

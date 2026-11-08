@@ -77,66 +77,74 @@ const Start = () => {
       <div className="flex justify-center pt-3">
         <div className={`lg:max-w-200 w-full`}>
           <LayoutHeightWrapper className="h-[calc(100dvh-145px)]! lg:h-[calc(100dvh-160px)]! ">
-            <div className="px-5 py-2 pr-0 flex items-center">
-              <div className="w-full">
-                <h1 className="text-left font-bold text-xl lg:text-2xl mb-2">Source</h1>
-                <Swiper
-                  modules={[FreeMode, Keyboard, Mousewheel, Pagination, Scrollbar]}
-                  spaceBetween={5}
-                  slidesPerView={3.5}
-                  freeMode={true}
-                  resistance={false}
-                  touchReleaseOnEdges={true}
-                  grabCursor={true}
-                  direction={"horizontal"}
-                  mousewheel={true}
-                  pagination={{
-                    el: ".custom-pagination",
-                    clickable: true,
-                  }}
-                  breakpoints={{
-                    640: {
-                      slidesPerView: 5.5,
-                    },
-                    768: {
-                      slidesPerView: 6.5,
-                    },
-                    1024: {
-                      slidesPerView: 6.5,
-                    },
-                    1280: {
-                      slidesPerView: 6.5,
-                    },
-                  }}
-                  keyboard={{
-                    enabled: true,
-                  }}
-                >
-                  {!directory.length && <Spinner />}
-                  {directory.map((item: Source) => (
-                    <SwiperSlide>
-                      <button
-                        key={item.uri}
-                        disabled={!item.enabled}
-                        onClick={() => onClickHandler(item)}
-                        className={`touch-pan-x rounded-lg flex items-center justify-center aspect-square overflow-hidden w-full transition-all duration-200 text-base
+            {/* touch layout: horizontal swiper (desktop uses the sidebar) */}
+            <div className="lg:hidden">
+              <div className="px-5 py-2 pr-0 flex items-center">
+                <div className="w-full">
+                  <h1 className="text-left font-bold text-xl lg:text-2xl mb-2">Source</h1>
+                  <Swiper
+                    modules={[FreeMode, Keyboard, Mousewheel, Pagination, Scrollbar]}
+                    spaceBetween={5}
+                    slidesPerView={3.5}
+                    freeMode={true}
+                    resistance={false}
+                    touchReleaseOnEdges={true}
+                    grabCursor={true}
+                    direction={"horizontal"}
+                    mousewheel={true}
+                    pagination={{
+                      el: ".custom-pagination",
+                      clickable: true,
+                    }}
+                    breakpoints={{
+                      640: {
+                        slidesPerView: 5.5,
+                      },
+                      768: {
+                        slidesPerView: 6.5,
+                      },
+                      1024: {
+                        slidesPerView: 6.5,
+                      },
+                      1280: {
+                        slidesPerView: 6.5,
+                      },
+                    }}
+                    keyboard={{
+                      enabled: true,
+                    }}
+                  >
+                    {!directory.length && <Spinner />}
+                    {directory.map((item: Source) => (
+                      <SwiperSlide>
+                        <button
+                          key={item.uri}
+                          disabled={!item.enabled}
+                          onClick={() => onClickHandler(item)}
+                          className={`touch-pan-x rounded-lg flex items-center justify-center aspect-square overflow-hidden w-full transition-all duration-200 text-base
                 cursor-pointer ${!item.enabled ? "opacity-30" : item.active ? "bg-primary hover:bg-foreground dark:hover:text-black" : "hover:bg-hover"}`}
-                      >
-                        {loadingItem === item.uri && (
-                          <div className="absolute bg-foreground/30 w-full h-full rounded-lg">
-                            <Spinner />
-                          </div>
-                        )}
+                        >
+                          {loadingItem === item.uri && (
+                            <div className="absolute bg-foreground/30 w-full h-full rounded-lg">
+                              <Spinner />
+                            </div>
+                          )}
 
-                        <div className="flex flex-col items-center">
-                          <div className="mb-2">{SOURCE_ICONS[item.uri]}</div>
-                          <div className="flex font-medium">{item.name}</div>
-                        </div>
-                      </button>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+                          <div className="flex flex-col items-center">
+                            <div className="mb-2">{SOURCE_ICONS[item.uri]}</div>
+                            <div className="flex font-medium">{item.name}</div>
+                          </div>
+                        </button>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
               </div>
+            </div>
+
+            {/* desktop: the source picker lives in the sidebar */}
+            <div className="hidden lg:flex flex-col items-center justify-center opacity-60 py-8">
+              <p className="text-lg font-light">Select a source from the sidebar</p>
             </div>
 
             <div className="px-5 py-2 pr-0">

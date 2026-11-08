@@ -1,7 +1,9 @@
 const dev = import.meta.env.DEV;
 const devHost = import.meta.env.VITE_DEV_HOST;
 
-const host = dev ? devHost : window.location.hostname;
+// host includes the port so the socket/RPC follow wherever the UI is
+// served from (vite preview, :8080 direct, nginx :80 where it's empty)
+const host = dev ? devHost : window.location.host;
 
 const httpProtocol = window.location.protocol;
 const wsProtocol = httpProtocol === "https:" ? "wss:" : "ws:";
@@ -11,7 +13,6 @@ export const WEBSOCKET_URL = `${wsProtocol}//${host}/ws`;
 
 export const WEBRTC_URL = `${httpProtocol}//${host}:8082/stream`;
 export const RPC_URL = `${httpProtocol}//${host}/rpc`;
-
 export const STROKE_WIDTH = 1.5;
 
 export const ICON_WEIGHT = "light";
