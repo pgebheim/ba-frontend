@@ -1,22 +1,9 @@
-import { ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useSourceService } from "@/services/source";
-import {
-  AirplayIcon,
-  BluetoothIcon,
-  FadersIcon,
-  GearIcon,
-  GlobeHemisphereWestIcon,
-  PlaylistIcon,
-  SpeakerHifiIcon,
-  SpotifyLogoIcon,
-  UsbIcon,
-  VinylRecordIcon,
-} from "@phosphor-icons/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Keyboard, Mousewheel, Pagination, Scrollbar } from "swiper/modules";
-import { ICON_LG, ICON_WEIGHT } from "@/constants";
+import { SOURCES, SourceItem } from "@/constants/sources";
 
 import "../../../node_modules/swiper/swiper.css";
 import "../../../node_modules/swiper/modules/free-mode.css";
@@ -25,68 +12,6 @@ import "../../../node_modules/swiper/modules/pagination.css";
 import ButtonStandby from "@/components/Button/ButtonStandby";
 import LayoutHeightWrapper from "@/components/Wrapper/LayoutHeightWrapper";
 import Page from "@/components/Page";
-
-type SourceItem = {
-  name: string;
-  icon: ReactElement;
-  alias: string;
-  url?: string;
-  disabled?: boolean;
-  render?: boolean;
-  type?: string;
-};
-const sources: SourceItem[] = [
-  {
-    name: "Playlists",
-    icon: <PlaylistIcon weight={ICON_WEIGHT} size={ICON_LG} />,
-    alias: "playlist",
-  },
-    {
-    name: "DSP",
-    icon: <FadersIcon weight={ICON_WEIGHT} size={ICON_LG} />,
-    alias: "settings/dsp",
-  },
-  {
-    name: "Library",
-    icon: <VinylRecordIcon weight={ICON_WEIGHT} size={ICON_LG} />,
-    alias: "local",
-  },
-  {
-    name: "Storage",
-    icon: <UsbIcon weight={ICON_WEIGHT} size={ICON_LG} />,
-    alias: "storage",
-  },
-  {
-    name: "Radio",
-    icon: <GlobeHemisphereWestIcon weight={ICON_WEIGHT} size={ICON_LG} />,
-    alias: "radio",
-  },
-  {
-    name: "Bluetooth",
-    icon: <BluetoothIcon weight={ICON_WEIGHT} size={ICON_LG} />,
-    alias: "bluetooth",
-  },
-  {
-    name: "Spotify",
-    icon: <SpotifyLogoIcon weight={ICON_WEIGHT} size={ICON_LG} />,
-    alias: "spotify",
-  },
-  {
-    name: "Airplay",
-    icon: <AirplayIcon weight={ICON_WEIGHT} size={ICON_LG} />,
-    alias: "shairportsync",
-  },
-  {
-    name: "Multiroom",
-    icon: <SpeakerHifiIcon weight={ICON_WEIGHT} size={ICON_LG} />,
-    alias: "multiroom",
-  },
-  {
-    name: "Settings",
-    icon: <GearIcon weight={ICON_WEIGHT} size={ICON_LG} />,
-    alias: "settings",
-  },
-];
 
 const Start = () => {
   const navigate = useNavigate();
@@ -111,7 +36,8 @@ const Start = () => {
       <LayoutHeightWrapper>
         <div className="px-4 flex items-center h-full">
           <div className="w-full">
-            <Swiper
+            <div className="lg:hidden">
+              <Swiper
               modules={[FreeMode, Keyboard, Mousewheel, Pagination, Scrollbar]}
               spaceBetween={10}
               slidesPerView={4}
@@ -143,7 +69,7 @@ const Start = () => {
                 enabled: true,
               }}
             >
-              {sources.map((item) => (
+              {SOURCES.map((item) => (
                 <SwiperSlide>
                   <button
                     key={item.alias}
@@ -161,7 +87,11 @@ const Start = () => {
               ))}
             </Swiper>
 
-            <div className="custom-pagination flex gap-2 items-center justify-center mt-4"></div>
+              <div className="custom-pagination flex gap-2 items-center justify-center mt-4"></div>
+            </div>
+            <div className="hidden lg:flex flex-col items-center justify-center h-full gap-2 opacity-60">
+              <p className="text-lg font-light">Select a source from the sidebar</p>
+            </div>
           </div>
         </div>
       </LayoutHeightWrapper>

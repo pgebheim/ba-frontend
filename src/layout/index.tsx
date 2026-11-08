@@ -8,6 +8,7 @@ import { useSystemService } from "@/services/system";
 import { useNetworkService } from "@/services/network";
 import { EVENTS } from "@/constants/events";
 import { Menu } from "../components/Menu";
+import Sidebar from "@/components/Sidebar";
 
 import Player from "@/components/Player";
 import Spinner from "@/components/Spinner";
@@ -121,7 +122,10 @@ export default function Layout({ children }: { children: any }) {
   return connected ? (
     <div className="flex flex-col h-full relative">
       <Menu />
-      <div className="flex-1 overflow-hidden">{children}</div>
+      <div className="flex-1 flex overflow-hidden">
+        <Sidebar />
+        <div className="flex-1 overflow-hidden">{children}</div>
+      </div>
       <Player />
       <Dialog />
       <OverlaySearch />
