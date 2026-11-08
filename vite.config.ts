@@ -19,13 +19,10 @@ export default defineConfig({
   },
   build: {
     outDir: "../berryaudio/web/www",
-    rollupOptions: {
-      output: {
-        entryFileNames: `assets/[name].js`,
-        chunkFileNames: `assets/[name].js`,
-        assetFileNames: `assets/[name].[ext]`,
-      },
-    },
+    // outDir is outside the project root, so vite would normally warn and
+    // leave stale files behind; prebuild removes the old assets and hashed
+    // filenames keep caches correct without manual busting
+    emptyOutDir: false,
   },
   // server: {
   //   host: "localhost",
