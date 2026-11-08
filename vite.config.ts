@@ -17,6 +17,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      "/rpc": "http://berryaudio:8080",
+      "/ws": { target: "ws://berryaudio:8080", ws: true },
+    },
+  },
   preview: {
     proxy: {
       "/rpc": "http://berryaudio:8080",
